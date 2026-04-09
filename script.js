@@ -33,7 +33,7 @@ function loadPDF() {
   currentLink = inputLink;
 
   const fileId = extractFileId(inputLink);
-  const url = `http://localhost:3000/pdf?id=${fileId}`;
+  const url = "/api/pdf?id=" + fileId;
 
   let data = getStorage();
 
