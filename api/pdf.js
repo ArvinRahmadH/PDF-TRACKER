@@ -1,28 +1,26 @@
-const express = require("express");
-const axios = require("axios");
-const cors = require("cors");
-
-const app = express();
-app.use(cors());
-
-app.get("/pdf", async (req, res) => {
+export default async function handler(req, res) {
   try {
-    const fileId = req.query.id;
+    const { id } = req.query;
 
-    const url = `https://drive.google.com/uc?export=download&id=${fileId}`;
+    if (!id) {
+      return res.status(400).send("ID tidak ditemukan");
+    }
 
-    const response = await axios.get(url, {
-      responseType: "arraybuffer"
-    });
+    const url = `https://drive.google.com/uc?export=download&id=${id}`;
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      return res.status(500).send("Gagal fetch dari Google Drive");
+    }
+
+    const buffer = await response.arrayBuffer();
 
     res.setHeader("Content-Type", "application/pdf");
-    res.send(response.data);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Gagal mengambil PDF");
-  }
-});
+    res.send(Buffer.from(buffer));
 
-app.listen(3000, () => {
-  console.log("Server jalan di http://localhost:3000");
-});
+  } catch (error) {
+    console.error("ERROR API:", error);
+    res.status(500).send("Server error");
+  }
+}
