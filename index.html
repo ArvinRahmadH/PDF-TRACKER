@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PDF Tracker</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Icon (Font Awesome) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <h2><i class="fa-solid fa-book-open"></i> PDF Tracker</h2>
+
+    <div class="input-group">
+      <i class="fa-solid fa-link"></i>
+      <input type="text" id="pdf-link" placeholder="Paste link Google Drive PDF">
+      <button onclick="loadPDF()"><i class="fa-solid fa-upload"></i> Load</button>
+    </div>
+
+    <p id="loading"></p>
+
+    <div class="pdf-container">
+      <canvas id="pdf-render"></canvas>
+    </div>
+
+    <div class="controls">
+      <button onclick="prevPage()"><i class="fa-solid fa-arrow-left"></i></button>
+      <span>Halaman: <span id="page-num"></span></span>
+      <button onclick="nextPage()"><i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+
+    <div class="history-box">
+      <h3><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Dokumen</h3>
+      <ul id="history-list"></ul>
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
